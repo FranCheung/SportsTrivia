@@ -1,0 +1,77 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#prompt {
+    text-align: center;
+    font-size: 24px;
+    color: #123456;
+    margin-bottom: 20px;
+}
+
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    border: none;
+    border-radius: 5px;
+}
+
+.tile:hover {
+    transform: translateY(-3px);
+    background-color: #cae8fa;
+}
+
+.selected {
+    background-color: #ffa726;
+}
+
+#submitGuess {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.2s;
+    cursor: pointer;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#submitGuess.enabled {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#submitGuess:hover {
+    background-color: #45a049;
+}
+
+#mistakeCounter {
+    font-size: 18px;
+    color: #d32f2f;
+    margin-top: 10px;
+}

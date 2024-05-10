@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Connections Game</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Ensures vertical stacking */
+            align-items: center; /* Center content horizontally */
+            justify-content: center; /* Center content vertically */
+            height: 100vh;
+        }
+
+        #prompt {
+            text-align: center;
+            font-size: 30px;
+            color: #123456;
+            margin-bottom: 20px;
+        }
+
+        #gameBoard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 30px;
+            background: #ffffff;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            margin-bottom: 40px; /* Space between the grid and the button */
+        }
+
+        .tile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e0e0;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+            border-radius: 5px;
+            font-size: 24px;
+        }
+
+        .tile:hover {
+            transform: translateY(-3px);
+            background-color: #cae8fa;
+        }
+
+        .selected {
+            background-color: #ffa726;
+        }
+
+        #submitGuess {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.2s;
+            cursor: pointer;
+            opacity: 0.5;
+            pointer-events: none; /* Initially disabled */
+            font-size: 24px;
+        }
+
+        #submitGuess.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #submitGuess:hover {
+            background-color: #45a049;
+        }
+
+        #strikeCounter {
+            font-size: 18px;
+            color: #d32f2f;
+            margin-top: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="prompt">Create Groups of Four</div>
+    <div id="gameBoard">
+        <!-- Fully populated 4x4 grid -->
+        <!-- Each cell is now interactable and part of the selection process -->
+        <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Stephen Curry</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Klay Thompson</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Draymond Green</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Golden State Warriors</div>
+        <div class="tile" onclick="selectTile(this)" data-team="MVP">Patrick Mahomes</div>
+        <div class="tile" onclick="selectTile(this)" data-team="MVP">Aaron Rodgers</div>
+        <div class="tile" onclick="selectTile(this)" data-team="MVP">Tom Brady</div>
+        <div class="tile" onclick="selectTile(this)" data-team="MVP">Peyton Manning</div>
+        <div class="tile" onclick="selectTile(this)" data-team="International">Nikola Jokic</div>
+        <div class="tile" onclick="selectTile(this)" data-team="International">Shai Gilgeous-Alexander</div>
+        <div class="tile" onclick="selectTile(this)" data-team="International">Luka Doncic</div>
+        <div class="tile" onclick="selectTile(this)" data-team="International">Victor Wembanyama</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Canadian NHL">Edmonton</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Canadian NHL">Vancouver</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Canadian NHL">Montreal</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Canadian NHL">Toronto</div>
+    </div>
+    <button id="submitGuess" onclick="submitGuess()">Submit Guess</button>
+    <div id="strikeCounter">Strikes: 0</div>
+
+    <script>
+        let selectedTiles = [];
+    let strikes = 0;  // Track the number of incorrect guesses
+    let successfulGuesses = 0;  // Track the number of correct groupings
+    const totalGroupings = 4;  // Total number of groups to guess correctly
+    const submitButton = document.getElementById('submitGuess');
+    const gameBoard = document.getElementById('gameBoard');
+    
+        function selectTile(tile) {
+            if (selectedTiles.includes(tile)) {
+                // Remove tile from the selection if it's already selected
+                selectedTiles = selectedTiles.filter(t => t !== tile);
+                tile.classList.remove('selected');
+            } else if (selectedTiles.length < 4) {
+                // Add tile to selection if less than four tiles are selected
+                selectedTiles.push(tile);
+                tile.classList.add('selected');
+            }
+            // Enable or disable submit button based on the number of selected tiles
+            submitButton.style.opacity = selectedTiles.length === 4 ? '1' : '0.5';
+            submitButton.style.pointerEvents = selectedTiles.length === 4 ? 'auto' : 'none';
+        }
+    
+        function submitGuess() {
+            if (selectedTiles.length === 4) {
+                // Check if all selected tiles have the same data attribute
+                const firstTeam = selectedTiles[0].getAttribute('data-team');
+                const isCorrect = selectedTiles.every(tile => tile.getAttribute('data-team') === firstTeam);
+                
+                if (isCorrect) {
+                    alert("Correct group!");
+                    // Change the background color to green and disable further clicks
+                    selectedTiles.forEach(tile => {
+                        tile.style.backgroundColor = 'green';  // Highlight in green
+                        tile.onclick = null;  // Remove the click event to disable further interaction
+                    });
+                } else {
+                    alert("Incorrect group!");
+                    // Increase strike count and handle it accordingly
+                    strikes++;
+                    document.getElementById('strikeCounter').textContent = 'Strikes: ' + strikes;
+                    if (strikes >= 3) {
+                        alert('Strike 3! Game Over: You have made too many strikes.');
+                        document.querySelectorAll('.tile').forEach(tile => {
+                            tile.style.backgroundColor = 'lightblue'; // Reset color to default
+                            tile.classList.remove('selected'); // Remove any selected class
+                            tile.onclick = null; // Disable all tiles interaction
+                        });
+                        document.getElementById('submitGuess').disabled = true; // Disable the submit button
+                    }
+                }
+                
+                // Reset selection regardless of whether the guess was correct
+                selectedTiles.forEach(tile => {
+                    if (tile.style.backgroundColor !== 'green') {  // Only remove the 'selected' class if not correctly guessed
+                        tile.classList.remove('selected');
+                    }
+                });
+                selectedTiles = [];
+                submitButton.style.opacity = '0.5';  // Make the button look disabled
+                submitButton.style.pointerEvents = 'none';  // Disable button clicks
+            } else {
+                alert("Please select exactly 4 tiles to submit a guess.");
+            }
+        }
+        const tilesData = [
+        { name: "Stephen Curry", team: "Golden State Warriors" },
+        { name: "Klay Thompson", team: "Golden State Warriors" },
+        { name: "Draymond Green", team: "Golden State Warriors" },
+        { name: "Golden State Warriors", team: "Golden State Warriors" },
+        { name: "Patrick Mahomes", team: "MVP" },
+        { name: "Aaron Rodgers", team: "MVP" },
+        { name: "Tom Brady", team: "MVP" },
+        { name: "Peyton Manning", team: "MVP" },
+        { name: "Nikola Jokic", team: "International" },
+        { name: "Shai Gilgeous-Alexander", team: "International" },
+        { name: "Luka Doncic", team: "International" },
+        { name: "Victor Wembanyama", team: "International" },
+        { name: "Edmonton", team: "Canadian NHL" },
+        { name: "Vancouver", team: "Canadian NHL" },
+        { name: "Montreal", team: "Canadian NHL" },
+        { name: "Toronto", team: "Canadian NHL" }
+    ];
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i >= 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+    }
+
+    function setupTiles() {
+        shuffle(tilesData); // Shuffle the array
+        gameBoard.innerHTML = ''; // Clear the board
+        tilesData.forEach(tile => {
+            const tileElement = document.createElement('div');
+            tileElement.className = 'tile';
+            tileElement.textContent = tile.name;
+            tileElement.dataset.team = tile.team;
+            tileElement.addEventListener('click', () => selectTile(tileElement));
+            gameBoard.appendChild(tileElement);
+        });
+        successfulGuesses = 0;  // Reset successful guesses count on new setup
+    }
+
+    function selectTile(tile) {
+        if (selectedTiles.includes(tile)) {
+            selectedTiles = selectedTiles.filter(t => t !== tile);
+            tile.classList.remove('selected');
+        } else if (selectedTiles.length < 4) {
+            selectedTiles.push(tile);
+            tile.classList.add('selected');
+        }
+        updateSubmitButton();
+    }
+
+    function updateSubmitButton() {
+        submitButton.style.opacity = selectedTiles.length === 4 ? '1' : '0.5';
+        submitButton.style.pointerEvents = selectedTiles.length === 4 ? 'auto' : 'none';
+    }
+
+    function submitGuess() {
+        if (selectedTiles.length === 4) {
+            const firstTeam = selectedTiles[0].dataset.team;
+            const isCorrect = selectedTiles.every(tile => tile.dataset.team === firstTeam);
+
+            if (isCorrect) {
+                alert("Correct group!");
+                successfulGuesses++;
+                selectedTiles.forEach(tile => {
+                    tile.style.backgroundColor = 'green';
+                    tile.onclick = null;
+                });
+                if (successfulGuesses === totalGroupings) {
+                    alert("Congratulations! Thank you for playing and solving our puzzle.");
+                }
+            } else {
+                alert("Incorrect group!");
+                strikes++;
+                document.getElementById('strikeCounter').textContent = 'Strikes: ' + strikes;
+                if (strikes >= 3) {
+                    alert('Strike 3! Game Over: You have made too many strikes.');
+                    resetGame();
+                }
+            }
+            resetSelection();
+        } else {
+            alert("Please select exactly 4 tiles to submit a guess.");
+        }
+    }
+
+    function resetSelection() {
+        selectedTiles.forEach(tile => {
+            if (tile.style.backgroundColor !== 'green') {
+                tile.classList.remove('selected');
+            }
+        });
+        selectedTiles = [];
+        updateSubmitButton();
+    }
+
+    function resetGame() {
+        strikes = 0;
+        document.getElementById('strikeCounter').textContent = 'Strikes: 0';
+        setupTiles();
+    }
+
+    setupTiles(); // Initialize the game
+        
+    </script>
+    
+</body>
+</html>
