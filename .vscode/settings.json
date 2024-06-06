@@ -1,0 +1,48 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "MySQL Local",
+            "database": "demo",
+            "username": "root",
+            "connectionTimeout": 30,
+            "password": ""
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Senior Project Database",
+            "database": "Senior Project",
+            "username": "francheung",
+            "password": ""
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "Senior Project",
+            "database": "Senior Project Database",
+            "username": "francheung",
+            "connectionTimeout": 30,
+            "password": ""
+        }
+    ]
+}

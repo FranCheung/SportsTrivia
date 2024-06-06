@@ -1,0 +1,49 @@
+body, input, button {
+    font-family: Arial, sans-serif;
+}
+
+#game {
+    text-align: center;
+    padding: 20px;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px;
+}
+
+input {
+    width: 200px;
+}
+
+#grid {
+    display: grid;
+    justify-content: center; /* Center the grid horizontally */
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.grid-row {
+    display: flex; /* Use flexbox for the row to align items in a row */
+    justify-content: center; /* Center each row within the grid */
+}
+
+.grid-cell {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    background-color: #ddd;
+    text-align: center;
+    line-height: 2em;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+#feedback, #previousGuesses, #attempts {
+    margin-top: 20px;
+}
+
+.correct-guess {
+    color: green;
+}

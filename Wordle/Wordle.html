@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Wordle</title>
+    <link rel="stylesheet" href="Wordle.css">
+</head>
+<body>
+    <div id="game">
+        <h1>Sports Wordle</h1>
+        <input type="text" id="guessInput" placeholder="Enter your guess" autofocus>
+        <button onclick="submitGuess()">Guess</button>
+        <div id="grid"></div>
+        <div id="feedback"></div>
+        <div id="previousGuesses">Previous guesses: </div>
+        <div id="attempts"></div>
+    </div>
+    <script>
+        // Array of possible script filenames
+        var scripts = ['Wordle1.js', 'Wordle2.js', 'Wordle3.js'];
+        // Generate a random index based on the number of scripts available
+        var index = Math.floor(Math.random() * scripts.length);
+        // Create a new script element
+        var script = document.createElement('script');
+        // Set the src attribute to a randomly selected script file from the array
+        script.src = scripts[index];
+        // Append the script element to the body of the page to load and execute it
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>
