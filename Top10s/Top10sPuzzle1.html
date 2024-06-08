@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 10 Quiz Game</title>
+<link rel="stylesheet" href="Top10s.css">
+</head>
+<body>
+<h1>Top 10 Quiz Game</h1>
+<p>Guess the Top 10 items in the given category!</p>
+<input type="text" id="userGuess" placeholder="Enter your guess here...">
+<button onclick="submitGuess()">Submit Guess</button>
+<div id="score">Score: 0 / 10</div>
+<div id="results"></div>
+<div id="possibleAnswers">
+    <h2>Possible Answers:</h2>
+    <ol id="answerList" class="two-columns">
+        <!-- List items will be added here -->
+    </ol>
+</div>
+
+
+<script src="Top10s.js"></script>
+</body>
+</html>
