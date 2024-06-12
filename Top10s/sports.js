@@ -89,14 +89,15 @@ async function submitScore(name, score){
     }
 }
 const userSignIn = async() => {
-    signInWithPopup(auth, provider)
-    .then((result) => {
+    try{
+        const result = await signInWithPopup(auth, provider);
         const user = result.user
-        console.log(user);
-    }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message
-    })
+        console.log("User signed in: ", user);
+        await submitScore(user.displayName || "Anonymous", score);
+    }catch (error){
+        console.error("Error during sign-in: ", error);
+    }
+    
   }
 
 window.submitGuess = submitGuess;
