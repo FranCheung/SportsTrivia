@@ -63,3 +63,18 @@ button:hover {
     max-width: 80%; /* Ensures list items are not too wide */
     visibility: hidden; /* Keep hidden until guessed */
 }
+.home-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.home-button:hover {
+    background-color: #2980b9;
+}

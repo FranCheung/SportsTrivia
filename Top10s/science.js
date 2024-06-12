@@ -1,5 +1,5 @@
 // script.js
-const top10Items = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
+const top10Items = ["elements", "space", "biology", "science", "newton", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
 let guesses = [];
 let score = 0;
 let incorrectGuesses = 0; // Counter for incorrect guesses
@@ -39,7 +39,6 @@ function submitGuess() {
                 resultsDiv.innerHTML = `<p>Game Over! Thank you for playing. Your final score was ${score} out of 10.</p>`;
                 document.getElementById("userGuess").disabled = true; // Disable further input
                 document.querySelector("button").disabled = true; // Disable the submit button
-                console.log("testing2")
                 return; // End the function early to stop further execution
             }
         }

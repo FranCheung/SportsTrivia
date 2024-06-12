@@ -1,5 +1,25 @@
 // script.js
-const top10Items = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
+// Import the functions you need from the SDKs you need
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+// import { getFirestore, collection, addDoc } from "firebase/firestore";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCtxdXykgJRn_Kq3nW5K65kMai9rHUjcPo",
+  authDomain: "trivia-senior-project.firebaseapp.com",
+  projectId: "trivia-senior-project",
+  storageBucket: "trivia-senior-project.appspot.com",
+  messagingSenderId: "920352771122",
+  appId: "1:920352771122:web:411c9976ddba4e4ae9802b"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const top10Items = ["jordan", "lebron", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
 let guesses = [];
 let score = 0;
 let incorrectGuesses = 0; // Counter for incorrect guesses
@@ -39,7 +59,8 @@ function submitGuess() {
                 resultsDiv.innerHTML = `<p>Game Over! Thank you for playing. Your final score was ${score} out of 10.</p>`;
                 document.getElementById("userGuess").disabled = true; // Disable further input
                 document.querySelector("button").disabled = true; // Disable the submit button
-                console.log("testing2")
+                console.log("testing")
+                submitScore("Fran", score)
                 return; // End the function early to stop further execution
             }
         }
@@ -48,4 +69,15 @@ function submitGuess() {
     }
 
     document.getElementById("userGuess").value = ""; // Clear the input field after each guess
+}
+async function submitScore(name, score){
+    try {
+        const docRef = await addDoc(collection(db,"top10s"), {
+            name: name, 
+            score: score,
+            timestamp: new Date()
+        })
+    } catch (e){
+        console.error("Error adding document:", e);
+    }
 }
