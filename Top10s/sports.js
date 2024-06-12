@@ -1,7 +1,9 @@
 // script.js
 // Import the functions you need from the SDKs you need
-// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-// import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,6 +20,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const provider = new GoogleAuthProvider()
+const auth = getAuth();
+
 
 const top10Items = ["jordan", "lebron", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
 let guesses = [];
@@ -33,10 +38,10 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function startQuiz(category) {
+// function startQuiz(category) {
     // Redirect user to the quiz page for the selected category
-    window.location.href = category + ".html";
-}
+//     window.location.href = category + ".html";
+// }
 
 function submitGuess() {
     const userGuess = document.getElementById("userGuess").value.toLowerCase();
@@ -56,9 +61,11 @@ function submitGuess() {
             if (incorrectGuesses < 3) {
                 resultsDiv.innerHTML = `<p>Wrong! You have ${3 - incorrectGuesses} attempts left.</p>`;
             } else {
-                resultsDiv.innerHTML = `<p>Game Over! Thank you for playing. Your final score was ${score} out of 10.</p>`;
+                resultsDiv.innerHTML = `<p>Game Over! Thank you for playing. Your final score was ${score} out of 10.</p><br><button id="signInButton">Create Account / Sign In</button>`;
                 document.getElementById("userGuess").disabled = true; // Disable further input
                 document.querySelector("button").disabled = true; // Disable the submit button
+                const signInButton = document.getElementById("signInButton");
+                signInButton.addEventListener('click', userSignIn);
                 console.log("testing")
                 submitScore("Fran", score)
                 return; // End the function early to stop further execution
@@ -81,3 +88,15 @@ async function submitScore(name, score){
         console.error("Error adding document:", e);
     }
 }
+const userSignIn = async() => {
+    signInWithPopup(auth, provider)
+    .then((result) => {
+        const user = result.user
+        console.log(user);
+    }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message
+    })
+  }
+
+window.submitGuess = submitGuess;
