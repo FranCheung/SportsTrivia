@@ -65,9 +65,9 @@ function submitGuess() {
                 document.getElementById("userGuess").disabled = true; // Disable further input
                 document.querySelector("button").disabled = true; // Disable the submit button
                 const signInButton = document.getElementById("signInButton");
+                signInButton.removeEventListener('click', userSignIn);
                 signInButton.addEventListener('click', userSignIn);
                 console.log("testing")
-                submitScore("Fran", score)
                 return; // End the function early to stop further execution
             }
         }
