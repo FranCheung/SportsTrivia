@@ -17,11 +17,11 @@
             height: 100vh;
         }
 
-        #prompt {
+        #prompt, #timerDisplay {
             text-align: center;
             font-size: 30px;
             color: #123456;
-            margin-bottom: 20px;
+            margin: 20px;
         }
 
         #gameBoard {
@@ -89,6 +89,7 @@
 </head>
 <body>
     <div id="prompt">Create Groups of Four</div>
+    <div id="timerDisplay">Time: 00:00</div>
     <div id="gameBoard">
         <!-- Fully populated 4x4 grid -->
         <!-- Each cell is now interactable and part of the selection process -->
@@ -117,6 +118,8 @@
     let strikes = 0;  // Track the number of incorrect guesses
     let successfulGuesses = 0;  // Track the number of correct groupings
     const totalGroupings = 4;  // Total number of groups to guess correctly
+    let timerInterval;
+        let startTime;
     const submitButton = document.getElementById('submitGuess');
     const gameBoard = document.getElementById('gameBoard');
     
@@ -196,25 +199,56 @@
         { name: "Toronto", team: "Canadian NHL" }
     ];
 
-    function shuffle(array) {
-        for (let i = array.length - 1; i >= 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-        }
+    function startTimer() {
+        startTime = Date.now();
+        timerInterval = setInterval(() => {
+            const elapsedTime = Date.now() - startTime;
+            document.getElementById('timerDisplay').textContent = 'Time: ' + formatTime(elapsedTime);
+        }, 1000);
+    }
+
+    function formatTime(ms) {
+        const seconds = Math.floor((ms / 1000) % 60);
+        const minutes = Math.floor((ms / 60000) % 60);
+        return `${pad(minutes)}:${pad(seconds)}`;
+    }
+
+    function pad(number) {
+        return number < 10 ? '0' + number : number;
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+    }
+
+    function resetTimer() {
+        stopTimer();
+        document.getElementById('timerDisplay').textContent = "Time: 00:00";
     }
 
     function setupTiles() {
-        shuffle(tilesData); // Shuffle the array
-        gameBoard.innerHTML = ''; // Clear the board
+        shuffle(tilesData);
+        gameBoard.innerHTML = '';
         tilesData.forEach(tile => {
             const tileElement = document.createElement('div');
             tileElement.className = 'tile';
             tileElement.textContent = tile.name;
             tileElement.dataset.team = tile.team;
-            tileElement.addEventListener('click', () => selectTile(tileElement));
+            tileElement.addEventListener('click', function() {
+                selectTile(tileElement);
+            });
             gameBoard.appendChild(tileElement);
         });
-        successfulGuesses = 0;  // Reset successful guesses count on new setup
+        successfulGuesses = 0;
+        resetTimer();
+        startTimer();
+    }
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i >= 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
     }
 
     function selectTile(tile) {
@@ -230,14 +264,13 @@
 
     function updateSubmitButton() {
         submitButton.style.opacity = selectedTiles.length === 4 ? '1' : '0.5';
-        submitButton.style.pointerEvents = selectedTiles.length === 4 ? 'auto' : 'none';
+        submitButton.disabled = !(selectedTiles.length === 4);
     }
 
     function submitGuess() {
         if (selectedTiles.length === 4) {
             const firstTeam = selectedTiles[0].dataset.team;
             const isCorrect = selectedTiles.every(tile => tile.dataset.team === firstTeam);
-
             if (isCorrect) {
                 alert("Correct group!");
                 successfulGuesses++;
@@ -246,12 +279,13 @@
                     tile.onclick = null;
                 });
                 if (successfulGuesses === totalGroupings) {
-                    alert("Congratulations! Thank you for playing and solving our puzzle.");
+                    stopTimer();
+                    alert(`Congratulations! You completed the puzzle in ${document.getElementById('timerDisplay').textContent.slice(6)}.`);
                 }
             } else {
                 alert("Incorrect group!");
                 strikes++;
-                document.getElementById('strikeCounter').textContent = 'Strikes: ' + strikes;
+                document.getElementById('strikeCounter').textContent = `Strikes: ${strikes}`;
                 if (strikes >= 3) {
                     alert('Strike 3! Game Over: You have made too many strikes.');
                     resetGame();
@@ -280,8 +314,7 @@
     }
 
     setupTiles(); // Initialize the game
-        
-    </script>
+</script>
     
 </body>
 </html>

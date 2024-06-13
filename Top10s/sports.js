@@ -24,7 +24,8 @@ const provider = new GoogleAuthProvider()
 const auth = getAuth(app);
 
 
-const top10Items = ["jordan", "lebron", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
+const top10Items = [["jordan", "lebron", "kobe", "malone", "shaq", "dirk", "kareem", "wilt", "kiwi", "lemon"],["bonds", "griffey", "y", "z", "ruth", "aaron", "rodriguez", "mays", "pujols", "mccovey"], ["sale", "kershaw", "webb", "cole", "verlander", "degrom", "scherzer", "strasburg", "buehler", "lemon"],]; // Example category: fruits
+const randomList = top10Items[Math.random()*top10Items.length()]
 let guesses = [];
 let score = 0;
 let incorrectGuesses = 0; // Counter for incorrect guesses
@@ -77,11 +78,12 @@ function submitGuess() {
 
     document.getElementById("userGuess").value = ""; // Clear the input field after each guess
 }
-async function submitScore(name, score){
+async function submitScore(name, score, category){
     try {
         const docRef = await addDoc(collection(db,"top10s"), {
             name: name, 
             score: score,
+            category: category,
             timestamp: new Date()
         })
     } catch (e){
@@ -93,7 +95,7 @@ const userSignIn = async() => {
         const result = await signInWithPopup(auth, provider);
         const user = result.user
         console.log("User signed in: ", user);
-        await submitScore(user.displayName || "Anonymous", score);
+        await submitScore(user.displayName || "Anonymous", score, "sports");
     }catch (error){
         console.error("Error during sign-in: ", error);
     }
