@@ -116,6 +116,29 @@
     <div id="strikeCounter">Strikes: 0</div>
 
     <script>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, query, where, orderBy, limit, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyCtxdXykgJRn_Kq3nW5K65kMai9rHUjcPo",
+        authDomain: "trivia-senior-project.firebaseapp.com",
+        projectId: "trivia-senior-project",
+        storageBucket: "trivia-senior-project.appspot.com",
+        messagingSenderId: "920352771122",
+        appId: "1:920352771122:web:411c9976ddba4e4ae9802b"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider()
+        const auth = getAuth(app);
+        
         let selectedTiles = [];
     let strikes = 0;  // Track the number of incorrect guesses
     let successfulGuesses = 0;  // Track the number of correct groupings
@@ -139,7 +162,19 @@
             submitButton.style.opacity = selectedTiles.length === 4 ? '1' : '0.5';
             submitButton.style.pointerEvents = selectedTiles.length === 4 ? 'auto' : 'none';
         }
-    
+        async function submitScore(name, score, category){
+            try {
+                const docRef = await addDoc(collection(db,"connection"), {
+                    name: name, 
+                    score: score,
+                    category: category,
+                    timestamp: new Date()
+                })
+            } catch (e){
+                console.error("Error adding document:", e);
+            }
+        }
+        
         function submitGuess() {
             if (selectedTiles.length === 4) {
                 // Check if all selected tiles have the same data attribute
@@ -266,7 +301,7 @@
 
     function updateSubmitButton() {
         submitButton.style.opacity = selectedTiles.length === 4 ? '1' : '0.5';
-        submitButton.disabled = !(selectedTiles.length === 4);
+        submitButton.style.pointerEvents = selectedTiles.length === 4 ? 'auto' : 'none';
     }
 
     function submitGuess() {
@@ -282,7 +317,9 @@
                 });
                 if (successfulGuesses === totalGroupings) {
                     stopTimer();
-                    alert(`Congratulations! You completed the puzzle in ${document.getElementById('timerDisplay').textContent.slice(6)}.`);
+                    const time = Number(document.getElementById('timerDisplay').textContent.slice(6))
+                    submitScore(user.displayName || "Anonymous", time);
+                    alert(`Congratulations! You completed the puzzle in ${time}.`);
                 }
             } else {
                 alert("Incorrect group!");

@@ -62,7 +62,7 @@ export function submitGuess() {
             if (incorrectGuesses < 3) {
                 resultsDiv.innerHTML = `<p>Wrong! You have ${3 - incorrectGuesses} attempts left.</p>`;
             } else {
-                resultsDiv.innerHTML = `<p>Game Over! Thank you for playing. Your final score was ${score} out of 10.</p><br><button id="signInButton">Create Account / Sign In</button>`;
+                resultsDiv.innerHTML = `<p>Game Over! Thank you for playing. Your final score was ${score} out of 10.</p><br><button id="signInButton">Sign In to Submit Score</button>`;
                 document.getElementById("userGuess").disabled = true; // Disable further input
                 document.querySelector("button").disabled = true; // Disable the submit button
                 const signInButton = document.getElementById("signInButton");
