@@ -43,13 +43,8 @@
 
     <script>
         document.getElementById('playButton').addEventListener('click', function() {
-            var puzzles = [
-                'MysteryHint.html', // Main game page
-                'einstein.html', // Another puzzle page
-                'panda.html'
-            ];
-            var randomPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
-            window.location.href = randomPuzzle;
+            var puzzles = 'MysteryHint.html' // Main game page ;
+            window.location.href = puzzle;
         });
 
         document.getElementById('homeButton').addEventListener('click', function() {

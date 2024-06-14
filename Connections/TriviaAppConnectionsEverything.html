@@ -280,8 +280,8 @@
                     submitScore( "Anonymous", numTime);
                     resultsDiv.innerHTML = `<p>Congratulations! You completed the puzzle in ${timeText}.</p><br><button id="signInButton">Sign In to Submit Score</button>`;
                     const signInButton = document.getElementById("signInButton");
-                    signInButton.removeEventListener('click', userSignIn);
-                    signInButton.addEventListener('click', userSignIn);
+                    signInButton.removeEventListener('click', () => userSignIn(numTime));
+                    signInButton.addEventListener('click', () => userSignIn(numTime));
                 }
             } else {
                 alert("Incorrect group!");
