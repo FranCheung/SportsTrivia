@@ -90,6 +90,7 @@
 <body>
     <div id="prompt">Create Groups of Four</div>
     <div id="timerDisplay">Time: 00:00</div>
+    <div id="results"></div>
     <div id="gameBoard">
     <button onclick="goHome()" style="position: fixed; top: 10px; right: 10px;">Home</button>
 
@@ -149,18 +150,29 @@
     const gameBoard = document.getElementById('gameBoard');
     
         
-        async function submitScore(name, score, category){
+        async function submitScore(name, score){
             try {
-                const docRef = await addDoc(collection(db,"connection"), {
+                const docRef = await addDoc(collection(db,"connections"), {
                     name: name, 
                     score: score,
-                    category: category,
                     timestamp: new Date()
                 })
             } catch (e){
                 console.error("Error adding document:", e);
             }
         }
+        const userSignIn = async(score) => {
+            try{
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user
+                console.log("User signed in: ", user);
+                await submitScore(user.displayName || "Anonymous", score);
+                // await getTopScores("sports");
+            }catch (error){
+                console.error("Error during sign-in: ", error);
+            }
+            
+          }
         const tilesData = [
         { name: "Stephen Curry", team: "Golden State Warriors" },
         { name: "Klay Thompson", team: "Golden State Warriors" },
@@ -249,6 +261,7 @@
     }
 
     function submitGuess() {
+        const resultsDiv = document.getElementById("results");
         if (selectedTiles.length === 4) {
             const firstTeam = selectedTiles[0].dataset.team;
             const isCorrect = selectedTiles.every(tile => tile.dataset.team === firstTeam);
@@ -261,9 +274,14 @@
                 });
                 if (successfulGuesses === totalGroupings) {
                     stopTimer();
-                    const time = Number(document.getElementById('timerDisplay').textContent.slice(6))
-                    submitScore(user.displayName || "Anonymous", time);
-                    alert(`Congratulations! You completed the puzzle in ${time}.`);
+                    const timeText = document.getElementById('timerDisplay').textContent.split(' ')[1];
+                    const [minutes, seconds] = timeText.split(':').map(Number);
+                    const numTime = minutes * 60 + seconds;
+                    submitScore( "Anonymous", numTime);
+                    resultsDiv.innerHTML = `<p>Congratulations! You completed the puzzle in ${timeText}.</p><br><button id="signInButton">Sign In to Submit Score</button>`;
+                    const signInButton = document.getElementById("signInButton");
+                    signInButton.removeEventListener('click', userSignIn);
+                    signInButton.addEventListener('click', userSignIn);
                 }
             } else {
                 alert("Incorrect group!");
