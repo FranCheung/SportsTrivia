@@ -1,12 +1,12 @@
 let currentGuessCount = 0;
 const maxGuesses = 5;
-const mysteryObject = "Eiffel Tower"; // Example object
+const mysteryObject = "Albert Einstein"; // Example object
 const hints = [
-    "It's located in Europe.",
-    "It's over 300 meters tall.",
-    "It was built in the late 19th century.",
-    "It is one of the most visited monuments in the world.",
-    "It is made of iron."
+    "He was born in the Kingdom of Württemberg in the German Empire.",
+    "Famous for his theory of relativity.",
+    "He won the Nobel Prize in Physics in 1921.",
+    "He had a distinctive hairstyle.",
+    "He was a pacifist during World War I."
 ];
 let currentGuess
 

@@ -1,12 +1,12 @@
 let currentGuessCount = 0;
 const maxGuesses = 5;
-const mysteryObject = "Eiffel Tower"; // Example object
+const mysteryObject = "Panda"; // Example object
 const hints = [
-    "It's located in Europe.",
-    "It's over 300 meters tall.",
-    "It was built in the late 19th century.",
-    "It is one of the most visited monuments in the world.",
-    "It is made of iron."
+    "This animal is native to a country in Asia.",
+    "It primarily eats bamboo.",
+    "It is black and white.",
+    "It is considered a national treasure in its native country.",
+    "It spends most of its life eating and sleeping."
 ];
 let currentGuess
 

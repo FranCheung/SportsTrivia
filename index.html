@@ -24,17 +24,25 @@
         .menu h1 {
             color: #333;
         }
-        .menu a {
-            display: inline-block;
-            margin: 10px;
+        select {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
             padding: 10px 20px;
             background: #007BFF;
             color: white;
             border-radius: 5px;
             text-decoration: none;
+            border: none;
+            cursor: pointer;
             transition: background-color 0.3s;
         }
-        .menu a:hover {
+        button:hover {
             background-color: #0056b3;
         }
     </style>
@@ -42,9 +50,21 @@
 <body>
     <div class="menu">
         <h1>Select a Game to Play</h1>
-        <a href="./Connections/WelcomeTriviaAppConnectionsPlayPage.html">Connections</a>
-        <a href="./Top10s/Top10sWelcome.html">Top10s</a>
-        <a href="Wordle.html">Wordle</a>
+        <form action="" method="GET">
+            <select id="gameSelect">
+                <option value="./Connections/WelcomeTriviaAppConnectionsPlayPage.html">Connections</option>
+                <option value="./Top10s/Top10sWelcome.html">Top10s</option>
+                <option value="./MysteryHint/MysteryHintWelcome.html">Mystery Hint</option>
+                <option value="Wordle.html">Wordle</option>
+            </select>
+            <button type="button" onclick="goToGame()">Go to Game</button>
+        </form>
     </div>
+    <script>
+        function goToGame() {
+            var gameUrl = document.getElementById('gameSelect').value;
+            window.location = gameUrl;
+        }
+    </script>
 </body>
 </html>

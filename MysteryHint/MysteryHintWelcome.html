@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Mystery Hint Game</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 32px;
+            color: #123456;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 24px;
+            color: white;
+            background-color: #4caf50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Mystery Hints!</h1>
+    <button id="playButton">Play</button>
+    <button id="homeButton">Return to Home</button>
+
+    <script>
+        document.getElementById('playButton').addEventListener('click', function() {
+            var puzzles = [
+                'MysteryHint.html', // Main game page
+                'einstein.html', // Another puzzle page
+                'panda.html'
+            ];
+            var randomPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
+            window.location.href = randomPuzzle;
+        });
+
+        document.getElementById('homeButton').addEventListener('click', function() {
+            window.location.href = 'index.html'; // Assuming 'index.html' is your home page
+        });
+    </script>
+</body>
+</html>

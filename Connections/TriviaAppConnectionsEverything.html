@@ -91,6 +91,8 @@
     <div id="prompt">Create Groups of Four</div>
     <div id="timerDisplay">Time: 00:00</div>
     <div id="gameBoard">
+    <button onclick="goHome()" style="position: fixed; top: 10px; right: 10px;">Home</button>
+
         <!-- Fully populated 4x4 grid -->
         <!-- Each cell is now interactable and part of the selection process -->
         <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Stephen Curry</div>
@@ -314,6 +316,10 @@
     }
 
     setupTiles(); // Initialize the game
+    
+    function goHome() {
+        window.location.href = 'WelcomeTriviaAppConnectionsPlayPage.html'; // Redirect to the welcome page
+    }
 </script>
     
 </body>
