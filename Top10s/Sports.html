@@ -14,6 +14,9 @@
 <button onclick="submitGuess()">Submit Guess</button>
 <div id="score">Score: 0 / 10</div>
 <div id="results"></div>
+<div id="topScores">
+    <!-- Top scores will be displayed here -->
+</div>
 <div id="possibleAnswers">
     <h2>Possible Answers:</h2>
     <ol id="answerList">
@@ -21,12 +24,12 @@
     </ol>
 </div>
 
-<script type="module" src="sports.js"></script>
 <script>
     function goHome() {
         window.location.href = 'Top10sWelcome.html'; // Redirect to the welcome page
     }
     window.goHome=goHome
 </script>
+<script type="module" src="sports.js" ></script>
 </body>
 </html>

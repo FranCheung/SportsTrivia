@@ -1,13 +1,14 @@
 // script.js
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, query, where, orderBy, limit, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+console.log("testing");
 const firebaseConfig = {
   apiKey: "AIzaSyCtxdXykgJRn_Kq3nW5K65kMai9rHUjcPo",
   authDomain: "trivia-senior-project.firebaseapp.com",
@@ -24,8 +25,7 @@ const provider = new GoogleAuthProvider()
 const auth = getAuth(app);
 
 
-const top10Items = [["jordan", "lebron", "kobe", "malone", "shaq", "dirk", "kareem", "wilt", "kiwi", "lemon"],["bonds", "griffey", "y", "z", "ruth", "aaron", "rodriguez", "mays", "pujols", "mccovey"], ["sale", "kershaw", "webb", "cole", "verlander", "degrom", "scherzer", "strasburg", "buehler", "lemon"],]; // Example category: fruits
-const randomList = top10Items[Math.random()*top10Items.length()]
+const top10Items = ["jordan", "lebron", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
 let guesses = [];
 let score = 0;
 let incorrectGuesses = 0; // Counter for incorrect guesses
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //     window.location.href = category + ".html";
 // }
 
-function submitGuess() {
+export function submitGuess() {
     const userGuess = document.getElementById("userGuess").value.toLowerCase();
     const resultsDiv = document.getElementById("results");
     const answers = document.querySelectorAll("#answerList li");
@@ -90,12 +90,31 @@ async function submitScore(name, score, category){
         console.error("Error adding document:", e);
     }
 }
+async function getTopScores(category) {
+    const topScoresDiv = document.getElementById("topScores");
+    topScoresDiv.innerHTML = "<h2>Top Scores:</h2>"; // Add a heading for the top scores
+
+    const q = query(collection(db, "top10s"), where("category", "==", category), orderBy("score", "desc"), limit(10));
+
+    try {
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const scoreItem = document.createElement("p");
+            scoreItem.textContent = `${data.name}: ${data.score}`;
+            topScoresDiv.appendChild(scoreItem);
+        });
+    } catch (e) {
+        console.error("Error getting documents:", e);
+    }
+}
 const userSignIn = async() => {
     try{
         const result = await signInWithPopup(auth, provider);
         const user = result.user
         console.log("User signed in: ", user);
         await submitScore(user.displayName || "Anonymous", score, "sports");
+        await getTopScores("sports");
     }catch (error){
         console.error("Error during sign-in: ", error);
     }
