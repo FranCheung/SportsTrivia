@@ -115,7 +115,7 @@
     <button id="submitGuess" onclick="submitGuess()">Submit Guess</button>
     <div id="strikeCounter">Strikes: 0</div>
 
-    <script>
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, collection, query, where, orderBy, limit, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -148,20 +148,7 @@
     const submitButton = document.getElementById('submitGuess');
     const gameBoard = document.getElementById('gameBoard');
     
-        function selectTile(tile) {
-            if (selectedTiles.includes(tile)) {
-                // Remove tile from the selection if it's already selected
-                selectedTiles = selectedTiles.filter(t => t !== tile);
-                tile.classList.remove('selected');
-            } else if (selectedTiles.length < 4) {
-                // Add tile to selection if less than four tiles are selected
-                selectedTiles.push(tile);
-                tile.classList.add('selected');
-            }
-            // Enable or disable submit button based on the number of selected tiles
-            submitButton.style.opacity = selectedTiles.length === 4 ? '1' : '0.5';
-            submitButton.style.pointerEvents = selectedTiles.length === 4 ? 'auto' : 'none';
-        }
+        
         async function submitScore(name, score, category){
             try {
                 const docRef = await addDoc(collection(db,"connection"), {
@@ -172,49 +159,6 @@
                 })
             } catch (e){
                 console.error("Error adding document:", e);
-            }
-        }
-        
-        function submitGuess() {
-            if (selectedTiles.length === 4) {
-                // Check if all selected tiles have the same data attribute
-                const firstTeam = selectedTiles[0].getAttribute('data-team');
-                const isCorrect = selectedTiles.every(tile => tile.getAttribute('data-team') === firstTeam);
-                
-                if (isCorrect) {
-                    alert("Correct group!");
-                    // Change the background color to green and disable further clicks
-                    selectedTiles.forEach(tile => {
-                        tile.style.backgroundColor = 'green';  // Highlight in green
-                        tile.onclick = null;  // Remove the click event to disable further interaction
-                    });
-                } else {
-                    alert("Incorrect group!");
-                    // Increase strike count and handle it accordingly
-                    strikes++;
-                    document.getElementById('strikeCounter').textContent = 'Strikes: ' + strikes;
-                    if (strikes >= 3) {
-                        alert('Strike 3! Game Over: You have made too many strikes.');
-                        document.querySelectorAll('.tile').forEach(tile => {
-                            tile.style.backgroundColor = 'lightblue'; // Reset color to default
-                            tile.classList.remove('selected'); // Remove any selected class
-                            tile.onclick = null; // Disable all tiles interaction
-                        });
-                        document.getElementById('submitGuess').disabled = true; // Disable the submit button
-                    }
-                }
-                
-                // Reset selection regardless of whether the guess was correct
-                selectedTiles.forEach(tile => {
-                    if (tile.style.backgroundColor !== 'green') {  // Only remove the 'selected' class if not correctly guessed
-                        tile.classList.remove('selected');
-                    }
-                });
-                selectedTiles = [];
-                submitButton.style.opacity = '0.5';  // Make the button look disabled
-                submitButton.style.pointerEvents = 'none';  // Disable button clicks
-            } else {
-                alert("Please select exactly 4 tiles to submit a guess.");
             }
         }
         const tilesData = [
@@ -357,6 +301,7 @@
     function goHome() {
         window.location.href = 'WelcomeTriviaAppConnectionsPlayPage.html'; // Redirect to the welcome page
     }
+    window.submitGuess = submitGuess;
 </script>
     
 </body>
