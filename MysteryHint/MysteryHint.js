@@ -6,7 +6,7 @@ let hints;
 function startGame() {
     const mysteryObjects = {
         "Eiffel Tower": {
-            image: "images/eiffeltower.jpg",
+            image: "./images/eiffeltower.jpg",
             hints: [
                 "It's located in Europe.",
                 "It's over 300 meters tall.",
@@ -16,7 +16,7 @@ function startGame() {
             ]
         },
         "Panda": {
-            image: "images/panda.jpg", 
+            image: "./images/panda.jpg",
             hints: [
                 "This animal is native to a country in Asia.",
                 "It primarily eats bamboo.",
@@ -26,7 +26,7 @@ function startGame() {
             ]
         },
         "Albert Einstein": {
-            image: "images/einstein.jpg",
+            image: "./images/einstein.jpg",
             hints: [
                 "He was born in the Kingdom of Württemberg in the German Empire.",
                 "Famous for his theory of relativity.",
@@ -42,13 +42,14 @@ function startGame() {
     mysteryObject = keys[randomIndex];
     hints = mysteryObjects[mysteryObject].hints;
 
-    document.getElementById("silhouette").src = mysteryObjects[mysteryObject].image;
-
     document.getElementById("nextButton").style.display = "none";
     document.getElementById("guessInput").value = "";
     document.getElementById("hint").innerText = "Hint: Begin guessing!";
     document.getElementById("feedback").innerText = "";
     currentGuessCount = 0;
+
+    // Hide the silhouette image initially
+    document.getElementById("silhouette").style.display = "none";
 }
 
 function makeGuess() {
@@ -56,12 +57,15 @@ function makeGuess() {
     const feedbackElement = document.getElementById("feedback");
     const hintElement = document.getElementById("hint");
     const nextButton = document.getElementById("nextButton");
+    const silhouetteImage = document.getElementById("silhouette");
 
     if (userGuess === mysteryObject.toLowerCase()) {
         feedbackElement.innerText = "Congratulations! You've guessed correctly.";
         hintElement.innerText = "";
         feedbackElement.style.color = '#5cb85c'; // Success color
         nextButton.style.display = "block";
+        silhouetteImage.style.display = "block";
+        silhouetteImage.src = mysteryObjects[mysteryObject].image;
         return;
     }
 
@@ -79,6 +83,7 @@ function makeGuess() {
 
 function nextGame() {
     document.getElementById("nextButton").style.display = "none";
+    document.getElementById("silhouette").style.display = "none";
     startGame();
 }
 
