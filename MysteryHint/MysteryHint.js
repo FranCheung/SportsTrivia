@@ -6,7 +6,7 @@ let hints;
 function startGame() {
     const mysteryObjects = {
         "Eiffel Tower": {
-            image: "./images/eiffeltower.jpg",
+            image: "./images/eiffeltower.jpeg",
             hints: [
                 "It's located in Europe.",
                 "It's over 300 meters tall.",
