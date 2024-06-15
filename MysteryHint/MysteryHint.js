@@ -2,9 +2,10 @@ let currentGuessCount = 0;
 const maxGuesses = 5;
 let mysteryObject;
 let hints;
+let mysteryObjects;
 
 function startGame() {
-    const mysteryObjects = {
+    mysteryObjects = {
         "Eiffel Tower": {
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/360px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg",
             hints: [
@@ -48,43 +49,7 @@ function startGame() {
     document.getElementById("feedback").innerText = "";
     currentGuessCount = 0;
 
-    // Hide the silhouette image initially
     document.getElementById("silhouette").style.display = "none";
-}
-
-function makeGuess() {
-    const userGuess = document.getElementById("guessInput").value.toLowerCase();
-    const feedbackElement = document.getElementById("feedback");
-    const hintElement = document.getElementById("hint");
-    const nextButton = document.getElementById("nextButton");
-    const silhouetteImage = document.getElementById("silhouette");
-
-    if (userGuess === mysteryObject.toLowerCase()) {
-        feedbackElement.innerText = "Congratulations! You've guessed correctly.";
-        hintElement.innerText = "";
-        feedbackElement.style.color = '#5cb85c'; // Success color
-        nextButton.style.display = "block";
-        silhouetteImage.style.display = "block";
-        silhouetteImage.src = mysteryObjects[mysteryObject].image;
-        return;
-    }
-
-    currentGuessCount++;
-
-    if (currentGuessCount >= maxGuesses) {
-        feedbackElement.innerText = `Sorry, you're out of guesses. The correct answer was ${mysteryObject}.`;
-        hintElement.innerText = "";
-        nextButton.style.display = "block";
-    } else {
-        feedbackElement.innerText = "That's not correct. Try again!";
-        hintElement.innerText = `Hint: ${hints[currentGuessCount - 1]}`;
-    }
-}
-
-function nextGame() {
-    document.getElementById("nextButton").style.display = "none";
-    document.getElementById("silhouette").style.display = "none";
-    startGame();
 }
 
 document.addEventListener("DOMContentLoaded", function() {
