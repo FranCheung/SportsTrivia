@@ -52,6 +52,41 @@ function startGame() {
     document.getElementById("silhouette").style.display = "none";
 }
 
+function makeGuess() {
+    const userGuess = document.getElementById("guessInput").value.toLowerCase();
+    const feedbackElement = document.getElementById("feedback");
+    const hintElement = document.getElementById("hint");
+    const nextButton = document.getElementById("nextButton");
+    const silhouetteImage = document.getElementById("silhouette");
+
+    if (userGuess === mysteryObject.toLowerCase()) {
+        feedbackElement.innerText = "Congratulations! You've guessed correctly.";
+        hintElement.innerText = "";
+        feedbackElement.style.color = '#5cb85c'; // Success color
+        nextButton.style.display = "block";
+        silhouetteImage.style.display = "block";
+        silhouetteImage.src = mysteryObjects[mysteryObject].image;
+        return;
+    }
+
+    currentGuessCount++;
+
+    if (currentGuessCount >= maxGuesses) {
+        feedbackElement.innerText = `Sorry, you're out of guesses. The correct answer was ${mysteryObject}.`;
+        hintElement.innerText = "";
+        nextButton.style.display = "block";
+    } else {
+        feedbackElement.innerText = "That's not correct. Try again!";
+        hintElement.innerText = `Hint: ${hints[currentGuessCount - 1]}`;
+    }
+}
+
+function nextGame() {
+    document.getElementById("nextButton").style.display = "none";
+    document.getElementById("silhouette").style.display = "none";
+    startGame();
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     startGame();
 });
