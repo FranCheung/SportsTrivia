@@ -1,6 +1,9 @@
+let currentGuessCount = 0;
+const maxGuesses = 5;
+let mysteryObject;
+let hints;
+
 function startGame() {
-    let currentGuessCount = 0;
-    const maxGuesses = 5;
     const mysteryObjects = {
         "Eiffel Tower": [
             "It's located in Europe.",
@@ -23,43 +26,51 @@ function startGame() {
             "He had a distinctive hairstyle.",
             "He was a pacifist during World War I."
         ]
-        
-    }
+    };
+
     const keys = Object.keys(mysteryObjects);
     const randomIndex = Math.floor(Math.random() * keys.length);
-    const mysteryObject = keys[randomIndex];
-    const hints = mysteryObjects[mysteryObject];
-    let currentGuess
+    mysteryObject = keys[randomIndex];
+    hints = mysteryObjects[mysteryObject];
 
-    function makeGuess() {
-        const userGuess = document.getElementById("guessInput").value.toLowerCase();
-        const feedbackElement = document.getElementById("feedback");
-        const hintElement = document.getElementById("hint");
+    document.getElementById("nextButton").style.display = "none";
+    document.getElementById("guessInput").value = "";
+    document.getElementById("hint").innerText = "Hint: Begin guessing!";
+    document.getElementById("feedback").innerText = "";
+    currentGuessCount = 0;
+}
 
-        if (userGuess === mysteryObject.toLowerCase()) {
-            feedbackElement.innerText = "Congratulations! You've guessed correctly.";
-            hintElement.innerText = "";
-            feedbackElement.style.color = '#5cb85c'; // Success color
-            nextButton.style.display = "block";
-            return;
-        }
+function makeGuess() {
+    const userGuess = document.getElementById("guessInput").value.toLowerCase();
+    const feedbackElement = document.getElementById("feedback");
+    const hintElement = document.getElementById("hint");
+    const nextButton = document.getElementById("nextButton");
 
-        currentGuessCount++;
-
-        if (currentGuessCount >= maxGuesses) {
-            feedbackElement.innerText = `Sorry, you're out of guesses. The correct answer was ${mysteryObject}.`;
-            hintElement.innerText = "";
-        } else {
-            feedbackElement.innerText = "That's not correct. Try again!";
-            hintElement.innerText = `Hint: ${hints[currentGuessCount]}`;
-        }
+    if (userGuess === mysteryObject.toLowerCase()) {
+        feedbackElement.innerText = "Congratulations! You've guessed correctly.";
+        hintElement.innerText = "";
+        feedbackElement.style.color = '#5cb85c'; // Success color
+        nextButton.style.display = "block";
+        return;
     }
-    
+
+    currentGuessCount++;
+
+    if (currentGuessCount >= maxGuesses) {
+        feedbackElement.innerText = `Sorry, you're out of guesses. The correct answer was ${mysteryObject}.`;
+        hintElement.innerText = "";
+        nextButton.style.display = "block";
+    } else {
+        feedbackElement.innerText = "That's not correct. Try again!";
+        hintElement.innerText = `Hint: ${hints[currentGuessCount - 1]}`;
+    }
 }
+
 function nextGame() {
-    document.getElementById("nextButton").style.display = "none"; 
-    startGame(); // Start a new game
+    document.getElementById("nextButton").style.display = "none";
+    startGame();
 }
+
 document.addEventListener("DOMContentLoaded", function() {
     startGame();
 });
