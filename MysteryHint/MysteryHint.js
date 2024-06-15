@@ -6,7 +6,7 @@ let hints;
 function startGame() {
     const mysteryObjects = {
         "Eiffel Tower": {
-            image: "./images/eiffeltower.jpeg",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/360px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg",
             hints: [
                 "It's located in Europe.",
                 "It's over 300 meters tall.",
@@ -16,7 +16,7 @@ function startGame() {
             ]
         },
         "Panda": {
-            image: "./images/panda.jpg",
+            image: "https://example.com/images/panda.jpg",
             hints: [
                 "This animal is native to a country in Asia.",
                 "It primarily eats bamboo.",
@@ -26,7 +26,7 @@ function startGame() {
             ]
         },
         "Albert Einstein": {
-            image: "./images/einstein.jpg",
+            image: "https://example.com/images/einstein.jpg",
             hints: [
                 "He was born in the Kingdom of Württemberg in the German Empire.",
                 "Famous for his theory of relativity.",
