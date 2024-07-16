@@ -26,8 +26,9 @@
             color: white;
             background-color: #4caf50;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
+            margin-top: 20px;
             transition: background-color 0.2s;
         }
         button:hover {
@@ -36,8 +37,10 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to Sports Connections Game!</h1>
+    <h1>Welcome to Connections!</h1>
+    <h1>Try Our Sports Themed Puzzles</h1>
     <button id="playButton">Play</button>
+    <button id="homeButton">Return to Home</button>
 
     <script>
         document.getElementById('playButton').addEventListener('click', function() {
@@ -45,10 +48,17 @@
                 'TriviaAppConnectionsEverything.html', // Main game page
                 'TriviaAppConnectionsPuzzle2.html', // Another puzzle page
                 'TriviaAppConnectionsPuzzle3.html',
+                'TriviaAppConnectionsPuzzle4.html',
+                'TriviaAppConnectionsPuzzle5.html',
+                'TriviaAppConnectionsPuzzle6.html',
+                'TriviaAppConnectionsPuzzle7.html'
                
             ];
             var randomPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
             window.location.href = randomPuzzle;
+        });
+        document.getElementById('homeButton').addEventListener('click', function() {
+            window.location.href = '../index.html'; // Assuming 'index.html' is your home page
         });
     </script>
 </body>

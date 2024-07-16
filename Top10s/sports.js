@@ -25,7 +25,7 @@ const provider = new GoogleAuthProvider()
 const auth = getAuth(app);
 
 
-const top10Items = ["jordan", "lebron", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
+const top10Items = ["lebron james", "kareem abdul-jabbar", "karl malone", "kobe bryant", "michael jordan", "dirk nowitzki", "wilt chamberlain", "kevin durant", "shaquille o'neal", "carmelo anthony"]; // Example category: fruits
 let guesses = [];
 let score = 0;
 let incorrectGuesses = 0; // Counter for incorrect guesses

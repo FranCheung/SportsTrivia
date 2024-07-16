@@ -1,5 +1,5 @@
 // script.js
-const top10Items = ["world war", "abraham lincoln", "history", "1776", "columbus", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
+const top10Items = ["george washington", "john adams", "thomas jefferson", "james jadison", "james monroe", "john quincy adams", "andrew jackson", "martin van buren", "william henry harrison", "john tyler"]; // Example category: fruits
 let guesses = [];
 let score = 0;
 let incorrectGuesses = 0; // Counter for incorrect guesses

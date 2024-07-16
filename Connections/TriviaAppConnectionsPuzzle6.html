@@ -96,22 +96,22 @@
 
         <!-- Fully populated 4x4 grid -->
         <!-- Each cell is now interactable and part of the selection process -->
-        <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Stephen Curry</div>
-        <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Klay Thompson</div>
-        <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Draymond Green</div>
-        <div class="tile" onclick="selectTile(this)" data-team="Golden State Warriors">Golden State Warriors</div>
-        <div class="tile" onclick="selectTile(this)" data-team="MVP">Patrick Mahomes</div>
-        <div class="tile" onclick="selectTile(this)" data-team="MVP">Aaron Rodgers</div>
-        <div class="tile" onclick="selectTile(this)" data-team="MVP">Tom Brady</div>
-        <div class="tile" onclick="selectTile(this)" data-team="MVP">Peyton Manning</div>
-        <div class="tile" onclick="selectTile(this)" data-team="International">Nikola Jokic</div>
-        <div class="tile" onclick="selectTile(this)" data-team="International">Shai Gilgeous-Alexander</div>
-        <div class="tile" onclick="selectTile(this)" data-team="International">Luka Doncic</div>
-        <div class="tile" onclick="selectTile(this)" data-team="International">Victor Wembanyama</div>
-        <div class="tile" onclick="selectTile(this)" data-team="Canadian NHL">Edmonton</div>
-        <div class="tile" onclick="selectTile(this)" data-team="Canadian NHL">Vancouver</div>
-        <div class="tile" onclick="selectTile(this)" data-team="Canadian NHL">Montreal</div>
-        <div class="tile" onclick="selectTile(this)" data-team="Canadian NHL">Toronto</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Commentators">John Madden</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Commentators">Vin Scully</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Commentators">Jim Nantz</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Commentators">Mike Breen</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Stadiums">Madison Square Garden</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Stadiums">Wembley Stadium</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Stadiums">Fenway Park</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Stadiums">Wrigley Field</div>
+        <div class="tile" onclick="selectTile(this)" data-team="NewYork">Yankees</div>
+        <div class="tile" onclick="selectTile(this)" data-team="NewYork">Mets</div>
+        <div class="tile" onclick="selectTile(this)" data-team="NewYork">Giants</div>
+        <div class="tile" onclick="selectTile(this)" data-team="NewYork">Knicks</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Multi">Bo Jackson</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Multi">Deion Sanders</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Multi">Tim Tebow</div>
+        <div class="tile" onclick="selectTile(this)" data-team="Multi">Kyler Murray</div>
     </div>
     <button id="submitGuess" onclick="submitGuess()">Submit Guess</button>
     <div id="strikeCounter">Strikes: 0</div>
@@ -174,22 +174,22 @@
             
           }
         const tilesData = [
-        { name: "Stephen Curry", team: "Golden State Warriors" },
-        { name: "Klay Thompson", team: "Golden State Warriors" },
-        { name: "Draymond Green", team: "Golden State Warriors" },
-        { name: "Golden State Warriors", team: "Golden State Warriors" },
-        { name: "Patrick Mahomes", team: "MVP" },
-        { name: "Aaron Rodgers", team: "MVP" },
-        { name: "Tom Brady", team: "MVP" },
-        { name: "Peyton Manning", team: "MVP" },
-        { name: "Nikola Jokic", team: "International" },
-        { name: "Shai Gilgeous-Alexander", team: "International" },
-        { name: "Luka Doncic", team: "International" },
-        { name: "Victor Wembanyama", team: "International" },
-        { name: "Edmonton", team: "Canadian NHL" },
-        { name: "Vancouver", team: "Canadian NHL" },
-        { name: "Montreal", team: "Canadian NHL" },
-        { name: "Toronto", team: "Canadian NHL" }
+        { name: "John Madden", team: "Commentators" },
+        { name: "Vin Scully", team: "Commentators" },
+        { name: "Jim Nantz", team: "Commentators" },
+        { name: "Mike Breen", team: "Commentators" },
+        { name: "Madison Square Garden", team: "Stadiums" },
+        { name: "Wembley Stadium", team: "Stadiums" },
+        { name: "Fenway Park", team: "Stadiums" },
+        { name: "Wrigley Field", team: "Stadiums" },
+        { name: "Yankees", team: "NewYork" },
+        { name: "Mets", team: "NewYork" },
+        { name: "Giants", team: "NewYork" },
+        { name: "Knicks", team: "NewYork" },
+        { name: "Bo Jackson", team: "Multi" },
+        { name: "Deion Sanders", team: "Multi" },
+        { name: "Tim Tebow", team: "Multi" },
+        { name: "Kyler Murray", team: "Multi" }
     ];
 
     function startTimer() {

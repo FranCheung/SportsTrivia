@@ -7,8 +7,8 @@
 <link rel="stylesheet" href="Top10s.css">
 </head>
 <body>
-<h1>Welcome to the Quiz Game!</h1>
-<p>Please select a category to begin:</p>
+<h1>Welcome to Top10s!</h1>
+<p>Please select a category to play:</p>
 <div id="categories">
     <button onclick="startQuiz('sports')">Sports</button>
     <button onclick="startQuiz('music')">Music</button>
@@ -16,6 +16,11 @@
     <button onclick="startQuiz('science')">Science</button>
     <button onclick="startQuiz('geography')">Geography</button>
 </div>
+<button id="homeButton">Return Home</button>
+    <script> document.getElementById('homeButton').addEventListener('click', function() {
+    window.location.href = '../index.html'; // Assuming 'index.html' is your home page
+        });
+    </script>
 
 <script src="Top10s.js"></script>
 </body>

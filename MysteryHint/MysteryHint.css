@@ -6,58 +6,86 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+    font-family: 'Arial', sans-serif; /* Ensures a clean, modern look */
+    background-color: #f4f4f9; /* Soft, neutral background color for less strain on the eyes */
+    color: #333; /* Dark grey color for text, enhancing readability */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden; /* Prevents scrolling */
 }
 
 .game-container {
     text-align: center;
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 40px; /* Optimal padding for balance */
+    border-radius: 10px; /* Soft rounded corners for a modern look */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Stronger shadow for a 3D feel */
     width: 90%;
     max-width: 600px;
+    transition: transform 0.3s; /* Smooth scaling on hover */
+}
+
+.game-container:hover {
+    transform: scale(1.03); /* Slight scale-up on hover for interactive feedback */
 }
 
 .responsive-img {
     max-width: 100%;
     height: auto;
     border-radius: 4px;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.1); /* Subtle shadow for images */
 }
 
-.input-field, .btn {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 2px solid #ccc;
+.input-field, button {
+    width: 80%; /* Reduced width for better form control visualization */
+    padding: 25px; /* Adequate padding for ease of input */
+    margin: 20px auto; /* Centering and spacing for better layout */
+    border: 2px solid #ccc; /* Subtle border color */
     border-radius: 4px;
+    font-size: 16px; /* Optimal font size for accessibility */
 }
 
-.btn {
-    background-color: #007bff;
+button {
+    padding: 5px 5px; /* Balanced padding for button */
+    font-size: 18px; /* Larger font size for better interaction */
+    background-color: #4CAF50; /* Softer green background for a friendly feel */
     color: white;
     cursor: pointer;
-    border: none;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+button:hover {
+    background-color: #45a049; /* Darker green on hover for depth */
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2); /* Enhanced shadow on hover for pop-out effect */
 }
 
 .hint {
     margin: 20px 0;
-    font-size: 16px;
-    color: #555;
+    font-size: 24px; /* Clear visibility of hints */
+    color: #555; /* Soft color for hints */
 }
 
 .feedback {
     margin-top: 20px;
-    color: #d9534f;
+    color: #d9534f; /* Color indicates caution or error */
+    font-size: 18px; /* Readability of feedback */
+    font-weight: bold; /* Emphasis on feedback */
+}
+#goHome {
+    padding: 5px 2px; /* Further reduced padding to decrease overall button size */
+    font-size: 14px; /* Smaller font size for a more compact appearance */
+    border-radius: 4px; /* Slight adjustment to the border radius for aesthetics */
+    background-color: #007BFF; /* Maintaining the existing blue background color */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 5px; /* Ensures some spacing from other elements, adjust as needed */
+}
+
+#goHome:hover {
+    background-color: #0056b3; /* Darker blue on hover for visual feedback */
+    transform: scale(1.05); /* Slight scale effect on hover to enhance interactivity */
 }
 

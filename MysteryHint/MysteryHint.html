@@ -7,9 +7,11 @@
 <link rel="stylesheet" href="MysteryHint.css">
 </head>
 <body>
+    <button id="goHome" onclick="goHome()" style="position: fixed; top: 10px; right: 10px;">Home</button>
+
 <div class="game-container">
     <img id="silhouette" alt="Mystery Silhouette">
-    <p id="hint">Hint: Begin guessing! </p>
+    <p id="hint">Begin guessing! </p>
     <input type="text" id="guessInput" placeholder="Enter your guess here">
     <button onclick="makeGuess()">Guess</button>
     <div id="feedbackModal" class="modal">
@@ -23,5 +25,10 @@
     <button id="nextButton" onclick="nextGame()" style="display: none;">Next</button>
 </div>
 <script src="MysteryHint.js"></script>
+<script>
+    function goHome() {
+        window.location.href = 'MysteryHintWelcome.html'; // Redirect to the welcome page
+    }
+</script>
 </body>
 </html>

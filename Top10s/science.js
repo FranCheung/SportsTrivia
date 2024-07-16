@@ -1,5 +1,5 @@
 // script.js
-const top10Items = ["elements", "space", "biology", "science", "newton", "fig", "grape", "honeydew", "kiwi", "lemon"]; // Example category: fruits
+const top10Items = ["hydrogen", "helium", "lithium", "beryllium", "boron", "carbon", "nitrogen", "oxygen", "fluorine", "neon"]; // Example category: fruits
 let guesses = [];
 let score = 0;
 let incorrectGuesses = 0; // Counter for incorrect guesses
