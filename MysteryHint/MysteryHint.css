@@ -74,14 +74,18 @@ button:hover {
     font-weight: bold; /* Emphasis on feedback */
 }
 #goHome {
-    padding: 5px 2px; /* Further reduced padding to decrease overall button size */
-    font-size: 14px; /* Smaller font size for a more compact appearance */
-    border-radius: 4px; /* Slight adjustment to the border radius for aesthetics */
-    background-color: #007BFF; /* Maintaining the existing blue background color */
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px; /* Adjusted padding to make the button smaller */
+    font-size: 18px; /* Smaller font size for a more compact appearance */
+    border-radius: 18px;
+    background-color: #007BFF;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-    margin-top: 5px; /* Ensures some spacing from other elements, adjust as needed */
+    width: auto; /* Auto width based on content, not exceeding half the screen */
+    max-width: 50%; /* Maximum width to prevent it from being too wide */
 }
 
 #goHome:hover {
